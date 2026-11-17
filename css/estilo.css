@@ -1,0 +1,488 @@
+/* =============================================================
+   estilo.css — Ruta Segura
+   Paleta inspirada en la bandera de Bolivia + modo oscuro.
+   Solo CSS: no depende de cambios en el HTML ni en el JS.
+   ============================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap");
+
+[hidden] { display: none !important; }
+
+:root {
+  /* Marca */
+  --verde: #00693C;
+  --verde-hover: #005531;
+  --verde-suave: #D6EAE0;
+  --verde-texto: #00693C;
+  --rojo: #D52B1E;
+  --rojo-suave: #F8D9D5;
+  --amarillo: #F4C300;
+  --amarillo-hover: #E0B200;
+  --amarillo-suave: #FBEEB0;
+
+  /* Superficies */
+  --fondo: #F4F3EF;
+  --superficie: #FFFFFF;
+  --superficie-alt: #EEECE6;
+  --txt: #16201B;
+  --txt-tenue: #5B6862;
+  --borde: #DEDBD1;
+
+  --font-titulo: "Space Grotesk", system-ui, sans-serif;
+  --font-cuerpo: "Inter", system-ui, sans-serif;
+
+  --radio: 18px;
+  --radio-sm: 10px;
+  --sombra: 0 10px 30px rgba(22, 32, 27, 0.12);
+  --sombra-sm: 0 2px 8px rgba(22, 32, 27, 0.08);
+
+  /* Altura ocupada arriba por encabezado + selector (para mover los controles del mapa) */
+  --alto-arriba: 132px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #0E1512;
+    --superficie: #16211C;
+    --superficie-alt: #1F2C25;
+    --txt: #EDF3EF;
+    --txt-tenue: #9BAAA3;
+    --borde: #2C3B33;
+    --verde-suave: #183A2A;
+    --verde-texto: #3CC48A;
+    --rojo-suave: #3D1D1A;
+    --amarillo-suave: #3A3214;
+    --sombra: 0 10px 30px rgba(0, 0, 0, 0.45);
+    --sombra-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: var(--font-cuerpo);
+  color: var(--txt);
+  background: var(--fondo);
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { font-family: var(--font-titulo); line-height: 1.2; margin: 0 0 10px; }
+h3 { font-size: 1.05rem; }
+p { margin: 0 0 10px; line-height: 1.5; }
+a { color: var(--verde); font-weight: 500; }
+
+/* ---------- Botones ---------- */
+button {
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: var(--verde);
+  color: #fff;
+  border: 0;
+  border-radius: var(--radio-sm);
+  padding: 11px 16px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.08s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+}
+button:hover { background: var(--verde-hover); }
+button:active { transform: scale(0.97); }
+button:disabled { opacity: 0.5; cursor: progress; transform: none; }
+button:focus-visible,
+a:focus-visible { outline: 3px solid var(--amarillo); outline-offset: 2px; }
+
+/* Botón secundario (Salir, Lleno, Finalizar) */
+button.sec {
+  background: transparent;
+  color: var(--txt);
+  border: 1px solid var(--borde);
+}
+button.sec:hover { background: var(--superficie-alt); }
+
+/* ---------- Campos ---------- */
+input, select {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 12px 14px;
+  margin: 0;
+  color: var(--txt);
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+input::placeholder { color: var(--txt-tenue); }
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--verde);
+  box-shadow: 0 0 0 3px var(--verde-suave);
+}
+
+video {
+  width: 100%;
+  border-radius: 14px;
+  background: #000;
+  margin: 10px 0;
+  border: 3px solid var(--verde);
+}
+
+/* =============================================================
+   PANTALLA DE INGRESO / REGISTRO
+   ============================================================= */
+body:has(#pantalla-auth:not([hidden])) {
+  background:
+    radial-gradient(circle at 15% 10%, var(--verde-suave), transparent 45%),
+    radial-gradient(circle at 90% 90%, var(--amarillo-suave), transparent 45%),
+    var(--fondo);
+  min-height: 100vh;
+}
+
+#pantalla-auth {
+  position: relative;
+  max-width: 400px;
+  margin: 10vh auto 24px;
+  padding: 36px 28px 28px;
+  text-align: center;
+  background: var(--superficie);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+  overflow: hidden;
+}
+/* Franja con los colores de la bandera */
+#pantalla-auth::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 6px;
+  background: linear-gradient(to right,
+    var(--rojo) 0 33.33%, var(--amarillo) 33.33% 66.66%, var(--verde) 66.66% 100%);
+}
+#pantalla-auth h1 { font-size: 1.9rem; margin-bottom: 4px; }
+#pantalla-auth h1::after {
+  content: "Viaja seguro. Verificado, siempre.";
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-cuerpo);
+  font-size: 0.92rem;
+  font-weight: 400;
+  color: var(--txt-tenue);
+}
+
+#paso-cuenta,
+#campos-acceso,
+#campos-registro {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+#paso-cuenta { margin-top: 24px; }
+
+#btn-auth { width: 100%; padding: 14px; font-size: 1rem; margin-top: 4px; }
+#cambiar-modo { color: var(--verde-texto); display: block; margin-top: 4px; font-size: 0.9rem; text-decoration: none; }
+#cambiar-modo:hover { text-decoration: underline; }
+
+#paso-verificar { margin-top: 20px; }
+#paso-verificar h2 { font-size: 1.25rem; }
+#paso-verificar p { color: var(--txt-tenue); font-size: 0.9rem; }
+#paso-verificar video { transform: scaleX(-1); } /* efecto espejo */
+#btn-verificar { width: 100%; padding: 14px; }
+
+/* =============================================================
+   PANTALLA PRINCIPAL (mapa a pantalla completa + paneles flotantes)
+   ============================================================= */
+#pantalla-app {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+}
+#pantalla-app:has(#selector[hidden]) { --alto-arriba: 80px; }
+
+#mapa {
+  position: absolute;
+  inset: 0;
+  height: auto;
+  z-index: 0; /* encierra los z-index internos de Leaflet */
+}
+
+/* ---------- Encabezado flotante ---------- */
+#pantalla-app > header {
+  position: absolute;
+  top: 12px; left: 12px; right: 12px;
+  max-width: 760px;
+  margin: 0 auto;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 10px 10px 18px;
+  background: color-mix(in srgb, var(--superficie) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  box-shadow: var(--sombra);
+}
+#pantalla-app > header b {
+  font-family: var(--font-titulo);
+  font-size: 1.15rem;
+  color: var(--verde-texto);
+  white-space: nowrap;
+}
+#pantalla-app > header b::before { content: "🚐 "; }
+#saludo {
+  margin-left: auto;
+  min-width: 0;
+  font-size: 0.9rem;
+  color: var(--txt-tenue);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#salir { flex-shrink: 0; padding: 8px 14px; font-size: 0.85rem; }
+
+/* ---------- Selector de transporte ---------- */
+#selector {
+  position: absolute;
+  top: 78px; left: 0; right: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  width: fit-content;
+  max-width: calc(100% - 24px);
+  margin: 0 auto;
+  padding: 0;
+}
+
+#selector [data-tipo] {
+  flex-shrink: 0;
+  background: var(--superficie);
+  color: var(--txt);
+  border: 1px solid var(--borde);
+  border-radius: 999px;
+  padding: 9px 16px;
+  box-shadow: var(--sombra-sm);
+}
+#selector [data-tipo]:hover { background: var(--superficie-alt); }
+#selector [data-tipo].activo {
+  background: var(--verde);
+  color: #fff;
+  border-color: var(--verde);
+  outline: none;
+}
+
+/* "Buscar" es la acción principal: amarillo y separado a la derecha */
+#btn-buscar {
+  flex-shrink: 0;
+  background: var(--amarillo);
+  color: #1A1A1A;
+  border-radius: 999px;
+  padding: 9px 22px;
+  box-shadow: var(--sombra-sm);
+}
+#btn-buscar::before { content: "🔍 "; }
+#btn-buscar:hover { background: var(--amarillo-hover); }
+
+/* ---------- Panel inferior tipo "bottom sheet" ---------- */
+#panel {
+  position: absolute;
+  left: 12px; right: 12px; bottom: 12px;
+  z-index: 10;
+  max-width: 480px;
+  margin: 0 auto;
+  max-height: 45vh;
+  overflow-y: auto;
+  padding: 22px 18px 16px;
+  background: var(--superficie);
+  border-radius: 20px;
+  box-shadow: var(--sombra);
+}
+/* Tirador decorativo arriba del panel */
+#panel::before {
+  content: "";
+  position: absolute;
+  top: 8px; left: 50%;
+  transform: translateX(-50%);
+  width: 40px; height: 4px;
+  border-radius: 4px;
+  background: var(--borde);
+}
+#panel > p:only-child { margin: 0; text-align: center; color: var(--txt-tenue); }
+#panel > button { width: 100%; margin-top: 8px; }
+#panel video { max-height: 30vh; object-fit: cover; }
+
+/* Tarjetas de resultados (minibuses, solicitudes, viajes) */
+.tarjeta {
+  background: var(--fondo);
+  border: 1px solid var(--borde);
+  border-left: 4px solid var(--verde);
+  border-radius: var(--radio-sm);
+  padding: 12px 14px;
+  margin: 10px 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+.tarjeta b { color: var(--txt); }
+.tarjeta button { margin: 10px 8px 0 0; padding: 8px 16px; font-size: 0.88rem; }
+.tarjeta button:last-child { margin-right: 0; }
+
+/* ---------- Controles de Leaflet: que no queden tapados ---------- */
+.leaflet-top { top: var(--alto-arriba); }
+.leaflet-bottom.leaflet-right { top: var(--alto-arriba); bottom: auto; }
+.leaflet-bar a { border-radius: 8px !important; }
+.leaflet-control-zoom { border: none !important; box-shadow: var(--sombra-sm) !important; }
+.leaflet-popup-content-wrapper { border-radius: 12px; font-family: var(--font-cuerpo); }
+
+/* ---------- Avisos (toast) ---------- */
+.aviso {
+  position: fixed;
+  top: 16px; left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  max-width: 92vw;
+  margin: 0;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #fff;
+  background: #2B3530;
+  box-shadow: var(--sombra);
+  animation: aparecer 0.25s ease;
+}
+body:has(#pantalla-app:not([hidden])) .aviso { top: calc(var(--alto-arriba) + 4px); }
+.aviso.ok { background: var(--verde); }
+.aviso.error { background: var(--rojo); }
+@keyframes aparecer {
+  from { opacity: 0; transform: translate(-50%, -10px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+/* ---------- Pantallas grandes: panel centrado y más ancho ---------- */
+@media (min-width: 900px) {
+  #panel { max-width: 560px; bottom: 16px; }
+}
+
+/* ---------- Móviles pequeños ---------- */
+@media (max-width: 420px) {
+  #saludo { font-size: 0.8rem; }
+  #selector { gap: 6px; }
+  #selector [data-tipo], #btn-buscar { padding: 8px 11px; font-size: 0.85rem; }
+  #btn-buscar::before { content: ""; }
+  #pantalla-auth { margin: 0; min-height: 100vh; border-radius: 0; padding-top: 18vh; }
+}
+
+/* ---------- Celulares muy angostos (≤ 380px): los 4 botones en una sola fila ---------- */
+@media (max-width: 380px) {
+  #selector { gap: 5px; max-width: calc(100% - 16px); }
+  #selector [data-tipo], #btn-buscar { padding: 7px 9px; font-size: 0.8rem; }
+  #pantalla-app > header { padding-left: 14px; gap: 8px; }
+  #pantalla-app > header b { font-size: 1rem; }
+}
+
+/* =============================================================
+   ESTADOS DE APROBACIÓN (etiquetas y cajas)
+   ============================================================= */
+button.peligro { background: var(--rojo); }
+button.peligro:hover { background: #B02418; }
+
+.estado {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+.estado--pendiente { background: var(--amarillo-suave); color: #8A6D00; }
+.estado--aprobado { background: var(--verde-suave); color: var(--verde-texto); }
+.estado--rechazado, .estado--suspendido { background: var(--rojo-suave); color: var(--rojo); }
+
+.estado-caja { border-radius: var(--radio-sm); padding: 12px 14px; margin-bottom: 12px; font-size: 0.9rem; }
+.estado-caja p { margin: 6px 0 0; }
+.estado-caja--pendiente { background: var(--amarillo-suave); }
+.estado-caja--aprobado { background: var(--verde-suave); color: var(--verde-texto); }
+.estado-caja--rechazado { background: var(--rojo-suave); }
+.estado-caja--rechazado b { color: var(--rojo); }
+
+/* Formulario de vehículo del conductor */
+.form-vehiculo { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.form-vehiculo label { display: flex; flex-direction: column; gap: 4px; font-size: 0.8rem; font-weight: 500; color: var(--txt-tenue); }
+.form-vehiculo .ancho { grid-column: 1 / -1; }
+.form-vehiculo button { padding: 13px; margin-top: 4px; }
+
+/* =============================================================
+   PANEL DEL ADMINISTRADOR (sin mapa, panel a pantalla completa)
+   ============================================================= */
+.modo-admin #mapa { display: none; }
+.modo-admin #pantalla-app { overflow-y: auto; background: var(--fondo); }
+.modo-admin #panel {
+  position: static;
+  max-width: 980px;
+  max-height: none;
+  overflow: visible;
+  margin: 80px auto 24px;
+  width: calc(100% - 24px);
+  padding: 22px;
+}
+.modo-admin #panel::before { display: none; }
+
+.adm-cabecera { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.adm-cabecera h2 { font-size: 1.35rem; margin-bottom: 2px; }
+.adm-sub { color: var(--txt-tenue); font-size: 0.88rem; margin-bottom: 12px; }
+.adm-cabecera button { flex-shrink: 0; padding: 8px 14px; font-size: 0.85rem; }
+
+.adm-filtros { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 14px; }
+.adm-filtros button {
+  background: var(--superficie-alt); color: var(--txt);
+  border-radius: 999px; padding: 8px 14px; font-size: 0.85rem;
+}
+.adm-filtros button:hover { background: var(--borde); }
+.adm-filtros button.activo { background: var(--verde); color: #fff; }
+.adm-contador {
+  display: inline-block; min-width: 22px; margin-left: 4px; padding: 1px 7px;
+  border-radius: 999px; background: rgba(0, 0, 0, 0.1); font-size: 0.75rem;
+}
+
+.adm-herramientas { display: grid; grid-template-columns: 1fr 200px; gap: 10px; margin-bottom: 16px; }
+
+.adm-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
+.adm-vacio { grid-column: 1 / -1; text-align: center; color: var(--txt-tenue); padding: 32px 0; }
+
+.adm-tarjeta {
+  display: flex; flex-direction: column; gap: 10px;
+  background: var(--superficie); border: 1px solid var(--borde);
+  border-radius: 14px; padding: 16px; box-shadow: var(--sombra-sm);
+}
+.adm-tarjeta__cabeza { display: flex; align-items: center; gap: 12px; }
+.adm-tarjeta__cabeza h3 { margin: 0; font-size: 1.1rem; letter-spacing: 0.5px; }
+.adm-tarjeta__cabeza p { margin: 0; font-size: 0.85rem; color: var(--txt-tenue); }
+.adm-tarjeta__cabeza .estado { margin-left: auto; }
+.adm-icono {
+  display: grid; place-items: center; flex-shrink: 0;
+  width: 44px; height: 44px; border-radius: 12px; font-size: 1.4rem; background: var(--superficie-alt);
+}
+
+.adm-datos { display: grid; grid-template-columns: 96px 1fr; gap: 4px 10px; margin: 0; font-size: 0.85rem; }
+.adm-datos + .adm-datos { padding-top: 10px; border-top: 1px dashed var(--borde); }
+.adm-datos dt { color: var(--txt-tenue); }
+.adm-datos dd { margin: 0; overflow-wrap: anywhere; }
+.adm-datos dd .estado { text-transform: none; margin-left: 4px; }
+.adm-sin-conductor { margin: 0; padding-top: 10px; border-top: 1px dashed var(--borde); font-size: 0.85rem; color: var(--txt-tenue); }
+.adm-motivo-actual { margin: 0; padding: 8px 10px; border-radius: 8px; background: var(--rojo-suave); font-size: 0.85rem; }
+
+.adm-acciones { display: flex; gap: 8px; margin-top: auto; }
+.adm-acciones button { flex: 1; padding: 10px; font-size: 0.88rem; }
+.adm-motivo { display: flex; flex-direction: column; gap: 8px; }
+
+@media (max-width: 600px) {
+  .modo-admin #panel { margin-top: 76px; padding: 16px; }
+  .adm-herramientas { grid-template-columns: 1fr; }
+  .adm-lista { grid-template-columns: 1fr; }
+  .form-vehiculo { grid-template-columns: 1fr; }
+}
+.modo-admin #pantalla-app > header { position: fixed; }
+@media (prefers-color-scheme: dark) {
+  .estado--pendiente, .estado-caja--pendiente { color: var(--amarillo); }
+}

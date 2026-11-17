@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ruta Segura · Transporte seguro en Bolivia</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+  <p id="aviso" class="aviso" hidden></p>
+  <main id="pantalla-auth">
+    <h1>🚐 Ruta Segura</h1>
+    <form id="form-auth" onsubmit="return false">
+      <div id="paso-cuenta">
+        <div id="campos-acceso">
+          <input name="correo" type="email" placeholder="Correo" autocomplete="email">
+          <input name="clave" type="password" placeholder="Contraseña" autocomplete="current-password">
+        </div>
+        <div id="campos-registro" hidden>
+          <input name="nombre" placeholder="Nombre completo">
+          <input name="ci" placeholder="Carnet de identidad">
+          <input name="telefono" placeholder="Teléfono">
+          <select name="rol"><option value="pasajero">Soy pasajero</option><option value="conductor">Soy conductor</option></select>
+        </div>
+        <button id="btn-auth" type="button"></button>
+        <a id="cambiar-modo" href="#"></a>
+      </div>
+      <div id="paso-verificar" hidden>
+        <h2>Verifica tu identidad</h2>
+        <p>Solo se hace una vez. Mira de frente a la cámara, con buena luz.</p>
+        <video id="video-auth" playsinline muted></video>
+        <button id="btn-verificar" type="button">Tomar foto y verificar mi cuenta</button>
+      </div>
+    </form>
+  </main>
+  <section id="pantalla-app" hidden>
+    <header><b>Ruta Segura</b><span id="saludo"></span><button id="salir" class="sec">Salir</button></header>
+    <div id="selector">
+      <button data-tipo="minibus" class="activo">🚐 Minibús</button>
+      <button data-tipo="taxi">🚕 Taxi</button>
+      <button data-tipo="moto">🏍️ Moto</button>
+      <button id="btn-buscar">Buscar</button>
+    </div>
+    <div id="mapa"></div>
+    <div id="panel"><p>Toca el mapa para elegir tu destino.</p></div>
+  </section>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
