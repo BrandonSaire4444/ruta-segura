@@ -6,5 +6,5 @@ export const CONFIG = {
   RADIO_MINIBUS_M: 300,      // un minibús "pasa cerca" si su ruta está a menos de esto del destino
   CENTRO: [-16.4897, -68.1193], // La Paz
   TARIFAS: { taxi: { base: 5, porKm: 2.5 }, moto: { base: 3, porKm: 1.8 }, minibus: { base: 1.5, porKm: 0 } }, // Bs
-  RUTA_MODELOS_FACIALES: './modelos-face-api',
+  RUTA_MODELOS_FACIALES: 'https://cdn.jsdelivr.net/gh/justadudewhohacks/face-api.js@master/weights',
 };
